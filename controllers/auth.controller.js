@@ -37,6 +37,8 @@ async function registerFunc(req, res) {
       user,
       token,
     });
+
+    return token;
   } catch (error) {
     res.status(500).json({
       message: "Server error",
@@ -46,12 +48,12 @@ async function registerFunc(req, res) {
 }
 
 async function loginFunc(req, res) {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     console.log(req.body);
 
     const isuserexist = await userModel.findOne({
-      username,
+      email,
     });
 
     if (!isuserexist) {
@@ -81,6 +83,8 @@ async function loginFunc(req, res) {
       token: token,
       isuserexist
     });
+    
+    return token;
 }
 
 module.exports = {
